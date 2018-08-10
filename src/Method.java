@@ -1,11 +1,21 @@
 public class Method {
-    public static void zwiekszTaktowanie(Komputer komputer, int dodaneTaktowanie){
-        double temp1 = komputer.getProcesor().getTempPrzyTaktowaniu() + (dodaneTaktowanie * 0.1);
-        double temp2 = komputer.getRam().getTempPrzyTaktowaniu() + (dodaneTaktowanie * 0.15);
-        if(temp1 > komputer.getProcesor().getMaxTemp() || temp2 > komputer.getRam().getMaxTemp()){
-            throw new ZbytWysokaTemp("Temperatura jest zbyt wysoka");
+    public static void zwiekszTaktowanieProcesora(Komputer komputer, int dodaneTaktowanie){
+        double temp = komputer.getProcesor().getTempPrzyTaktowaniu() + (dodaneTaktowanie * 0.1);
+        if(temp > komputer.getProcesor().getMaxTemp()){
+            throw new ZbytWysokaTemp("Nie można zwiększyć taktowania procesora. Maksymalna temperatura zostałaby przekroczona.");
         } else {
-            System.out.println("Taktowanie zostało zwiększone");
+            komputer.getProcesor().setTaktowanieMHz(komputer.getProcesor().getTaktowanieMHz() + dodaneTaktowanie);
+            System.out.println("Taktowanie procesora zostało zwiększone");
+        }
+    }
+
+    public static void zwiekszTaktowaniePamieciRam(Komputer komputer, int dodaneTaktowanie){
+        double temp = komputer.getRam().getTempPrzyTaktowaniu() + (dodaneTaktowanie * 0.15);
+        if(temp > komputer.getRam().getMaxTemp()){
+            throw new ZbytWysokaTemp("Nie można zwiększyć taktowania pamięci ram. Maksymalna temperatura zostałaby przekroczona.");
+        } else {
+            komputer.getRam().setTaktowanieMHz(komputer.getRam().getTaktowanieMHz() + dodaneTaktowanie);
+            System.out.println("Taktowanie pamięci ram zostało zwiększone");
         }
     }
 }
